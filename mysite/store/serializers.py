@@ -19,7 +19,7 @@ class UserSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ['email', 'username', 'password', 'password_confirm', 'birth_date', 'phone_number', 'image', 'first_name', 'last_name']
+        fields = ['id', 'email', 'username', 'password', 'password_confirm', 'birth_date', 'phone_number', 'image', 'first_name', 'last_name']
 
     def validate(self, data):
         if data['password'] != data['password_confirm']:
@@ -89,19 +89,19 @@ class ResetPasswordEmailSerializer(serializers.ModelSerializer):
 class AddressSerializer(CountryFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['city', 'country']
+        fields = ['id', 'city', 'country']
 
 class UserProfileSerializers(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True)
     class Meta:
         model = UserProfile
-        fields = ['username', 'email', 'password', 'last_name', 'birth_date', 'phone_number', 'image', 'addresses']
+        fields = ['id', 'username', 'email', 'password', 'last_name', 'birth_date', 'phone_number', 'image', 'addresses']
 
 
 class UserProfileSimpleSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['username', 'last_name', 'image']
+        fields = ['id', 'username', 'last_name', 'image']
 
 
 
@@ -109,7 +109,7 @@ class UserProfileGalerySerializers(serializers.ModelSerializer):
     addresses = AddressSerializer()
     class Meta:
         model = UserProfile
-        fields = ['username', 'last_name', 'image', 'addresses']
+        fields = ['id', 'username', 'last_name', 'image', 'addresses']
 
 
 
@@ -133,13 +133,13 @@ class RegionSerializers(serializers.ModelSerializer):
     reg_photos = RegionPhotosSerializers(many=True)
     class Meta:
         model = Region
-        fields = ['region_name', 'description', 'reg_photos']
+        fields = ['id', 'region_name', 'description', 'reg_photos']
 
 
 class RegionFoodSerializers(serializers.ModelSerializer):
     class Meta:
         model = RegionFood
-        fields = ['region_food', 'food_name', 'include_food', 'description_name', 'image']
+        fields = ['id', 'region_food', 'food_name', 'include_food', 'description_name', 'image']
 
 
 
@@ -164,7 +164,7 @@ class PlacesSerializers(serializers.ModelSerializer):
     places_photos = PlacesPhotosSerializers(many=True)
     class Meta:
         model = Places
-        fields = ['places_name', 'description', 'average_rating', 'places_photos']
+        fields = ['id', 'places_name', 'description', 'average_rating', 'places_photos']
 
     def average_rating(self, obj):
         return obj.average_rating()
@@ -175,7 +175,7 @@ class PlacesListSerializers(serializers.ModelSerializer):
     places_photos = PlacesPhotosSerializers(many=True)
     class Meta:
         model = Places
-        fields = ['places_name', 'average_rating', 'places_photos']
+        fields = ['id', 'places_name', 'average_rating', 'places_photos']
 
     def average_rating(self, obj):
         return obj.average_rating()
@@ -205,26 +205,26 @@ class PlacesListSerializers(serializers.ModelSerializer):
 class ConditionsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Conditions
-        fields = ['name_conditions', 'icon']
+        fields = ['id', 'name_conditions', 'icon']
 
 
 class OfferedSerializers(serializers.ModelSerializer):
     class Meta:
         model = Offered_amenities
-        fields = ['name_offered', 'icon']
+        fields = ['id', 'name_offered', 'icon']
 
 
 class SafetySerializers(serializers.ModelSerializer):
     class Meta:
         model = Safety_and_hydigene
-        fields = ['name_safety', 'icon']
+        fields = ['id', 'name_safety', 'icon']
 
 
 
 class HotelPhotosSerializers(serializers.ModelSerializer):
     class Meta:
         model = HotelPhotos
-        fields = ['image']
+        fields = ['id', 'image']
 
 
 class HotelSerializers(serializers.ModelSerializer):
@@ -237,7 +237,7 @@ class HotelSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Hotel
-        fields = ['places', 'hotel_name', 'average_rating', 'description', 'photos_hotel',
+        fields = ['id', 'places', 'hotel_name', 'average_rating', 'description', 'photos_hotel',
                 'short_period', 'medium_period', 'long_period', 'phone_number', 'conditions', 'offereds', 'safetys' ]
 
 
@@ -252,7 +252,7 @@ class HotelListSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Hotel
-        fields = ['hotel_name', 'photos_hotel', 'average_rating']
+        fields = ['id', 'hotel_name', 'photos_hotel', 'average_rating']
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()
@@ -278,7 +278,7 @@ class AttractionSerializers(serializers.ModelSerializer):
     attraction_photos = AttractionsPhotosSerializers(many=True)
     class Meta:
         model = Attractions
-        fields = ['at_name', 'description', 'attraction_photos', 'average_rating', 'phone_number']
+        fields = ['id', 'at_name', 'description', 'attraction_photos', 'average_rating', 'phone_number']
 
 
     def get_average_rating(self, obj):
@@ -293,7 +293,7 @@ class AttractionListSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Attractions
-        fields = ['at_name', 'attraction_photos', 'average_rating', 'description']
+        fields = ['id', 'at_name', 'attraction_photos', 'average_rating', 'description']
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()
@@ -306,7 +306,7 @@ class AttractionSimpleListSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Attractions
-        fields = ['at_name', 'attraction_photos', 'average_rating',]
+        fields = ['id', 'at_name', 'attraction_photos', 'average_rating',]
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()
@@ -331,7 +331,7 @@ class KitchenSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Kitchen
-        fields = ['name_kitchen', 'category', 'price_range', 'specialized_menu', 'meal_time', 'address', 'email', 'phone_number', 'average_rating',
+        fields = ['id', 'name_kitchen', 'category', 'price_range', 'specialized_menu', 'meal_time', 'address', 'email', 'phone_number', 'average_rating',
                   'kit_photos']
 
     def get_average_rating(self, obj):
@@ -346,7 +346,7 @@ class KitchenListSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Kitchen
-        fields = ['name_kitchen', 'kit_photos', 'average_rating', 'category' ]
+        fields = ['id', 'name_kitchen', 'kit_photos', 'average_rating', 'category' ]
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()
@@ -363,7 +363,7 @@ class KitchenListSerializers(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['title', 'description', 'date', 'location', 'ticket_price', 'image']
+        fields = ['id', 'title', 'description', 'date', 'location', 'ticket_price', 'image']
 
 
 
@@ -380,7 +380,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     reviews_photos = PhotosReviewSerializers(many=True)
     class Meta:
         model = Review
-        fields = ['author', 'rating', 'comment', 'created_at', 'reviews_photos', 'likes']
+        fields = ['id', 'author', 'rating', 'comment', 'created_at', 'reviews_photos', 'likes']
 
 
 
@@ -395,7 +395,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class CartItemSerializers(serializers.ModelSerializer):
     class Meta:
         model = CartItem
-        fields = ['cart', 'places', 'hotel']
+        fields = ['id', 'cart', 'places', 'hotel']
 
 
 class CartSerializers(serializers.ModelSerializer):
@@ -403,7 +403,7 @@ class CartSerializers(serializers.ModelSerializer):
     user = UserProfile()
     class Meta:
         model = Cart
-        fields = ['user', 'items']
+        fields = ['id', 'user', 'items']
 
 
 
@@ -424,29 +424,29 @@ class CultureSerializers(serializers.ModelSerializer):
 class GamesSerializers(serializers.ModelSerializer):
     class Meta:
         model = Games
-        fields = ['game_name', 'description', 'image']
+        fields = ['id', 'game_name', 'description', 'image']
 
 class NationalClothesSerializers(serializers.ModelSerializer):
     class Meta:
         model = NationalClothes
-        fields = ['clothes_name', 'description', 'image']
+        fields = ['id', 'clothes_name', 'description', 'image']
 
 class HandCraftsSerializers(serializers.ModelSerializer):
     class Meta:
         model = HandCrafts
-        fields = ['handcraft_name', 'description', 'image']
+        fields = ['id', 'handcraft_name', 'description', 'image']
 
 class CurrencySerializers(serializers.ModelSerializer):
     class Meta:
         model = Currency
-        fields = ['currency_name', 'description', 'image']
+        fields = ['id', 'currency_name', 'description', 'image']
 
 class NationalInstrumentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = NationalInstruments
-        fields = ['instrument', 'description', 'image']
+        fields = ['id', 'instrument', 'description', 'image']
 
 class NationalFoodSerializers(serializers.ModelSerializer):
     class Meta:
         model = NationalFood
-        fields = ['nationalfood_name', 'description', 'image']
+        fields = ['id', 'nationalfood_name', 'description', 'image']
