@@ -39,6 +39,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -125,11 +127,13 @@ AUTH_USER_MODEL = 'store.UserProfile'
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
@@ -197,3 +201,13 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
 }
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Russian'),
+    ('ar', 'Arabic'),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
+MODELTRANSLATION_LANGUAGES = ('en', 'ru', 'ar')
