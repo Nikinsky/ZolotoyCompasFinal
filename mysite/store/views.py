@@ -15,7 +15,6 @@ from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-
 class RegisterView(generics.CreateAPIView):
     serializer_class = UserSerializers
 
@@ -33,8 +32,6 @@ class RegisterView(generics.CreateAPIView):
         }, status=status.HTTP_201_CREATED)
 
 
-
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
