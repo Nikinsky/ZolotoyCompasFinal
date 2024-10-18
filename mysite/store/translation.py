@@ -53,3 +53,7 @@ class NationalInstrumentsTranslationOptions(TranslationOptions):
 @register(NationalFood)
 class NationalFoodTranslationOptions(TranslationOptions):
     fields = ('nationalfood_name', 'description',)
+
+@register(Event)
+class EventTranslationOptions(TranslationOptions):
+    fields = ('title', 'description',)
