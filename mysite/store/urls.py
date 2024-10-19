@@ -1,41 +1,26 @@
 from django.urls import path
+from rest_framework_simplejwt.views import TokenRefreshView
+
 from .views import *
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
 
-
-schema_view = get_schema_view(
-   openapi.Info(
-      title="Password Reset API",
-      default_version='v1',
-      description="API для сброса пароля через email",
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
-)
 
 urlpatterns = [
 
-    path('register/', RegisterView.as_view(), name='register'),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path('register/', RegisterView.as_view(), name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
-
     path('reset-password/', ResetPasswordRequestView.as_view(), name='reset-password'),
-# {
-#     "email": "example@example.com"
-# }
+
+    # {
+    #     "email": "example@example.com"
+    # }
+
     path('reset-password-confirm/<str:token>/', ResetPasswordConfirmView.as_view(), name='reset-password-confirm'),
 
-# {
-#     "password": "new_secure_password"
-# }
-
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # {
+    #     "password": "new_secure_password"
+    # }
 
 
 
