@@ -80,7 +80,14 @@ class ResetPasswordEmailSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Пользователь с таким email не найден.")
         return value
 
+class ResetPasswordConfirmSerializer(serializers.Serializer):
+    password = serializers.CharField(write_only=True, required=True, max_length=16, min_length=8)
 
+    def validate_password(self, value):
+        # Дополнительные проверки на сложность пароля (опционально)
+        if len(value) < 8:
+            raise serializers.ValidationError("Пароль должен содержать не менее 8 символов.")
+        return value
 
 
 
@@ -127,7 +134,7 @@ class UserProfileGalerySerializers(serializers.ModelSerializer):
 class RegionPhotosSerializers(serializers.ModelSerializer):
     class Meta:
         model = RegionPhotos
-        fields = ['image']
+        fields = ['region_photos', 'image']
 
 class RegionSerializers(serializers.ModelSerializer):
     reg_photos = RegionPhotosSerializers(many=True)

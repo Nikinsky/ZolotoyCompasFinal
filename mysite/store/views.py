@@ -1,4 +1,5 @@
 from django.core.mail import send_mail
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import viewsets, status, generics, permissions
@@ -86,24 +87,24 @@ class ResetPasswordRequestView(generics.CreateAPIView):
 
 
 
-class ResetPasswordConfirmView(APIView):
+class ResetPasswordConfirmView(GenericAPIView):
+    serializer_class = ResetPasswordConfirmSerializer
+
     def post(self, request, token):
         try:
             access_token = AccessToken(token)
             user_id = access_token['user_id']
             user = UserProfile.objects.get(id=user_id)
         except Exception:
-            return Response({"error": "Недействительный или истекший токен"}, status=400)
+            return Response({"error": "Недействительный или истекший токен"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Валидация и установка нового пароля
-        serializer = ResetPasswordConfirmSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user.set_password(serializer.validated_data['password'])
             user.save()
-            return Response({"message": "Пароль успешно обновлен"}, status=200)
-        return Response(serializer.errors, status=400)
+            return Response({"message": "Пароль успешно обновлен"}, status=status.HTTP_200_OK)
 
-
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

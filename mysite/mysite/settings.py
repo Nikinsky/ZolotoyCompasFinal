@@ -191,12 +191,16 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+]
+
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 
 
 SIMPLE_JWT = {
